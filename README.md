@@ -3,7 +3,7 @@
 # 🚀 Ollama Model Benchmark Tool
 
 ![Python Version](https://img.shields.io/badge/python-3.7%2B-blue)
-![PyQt5 Version](https://img.shields.io/badge/PyQt5-5.15%2B-green)
+[![PyQt5 Version](https://img.shields.io/badge/PyQt5-5.15%2B-green)](https://pypi.org/project/PyQt5/)
 [![License](https://img.shields.io/badge/license-MIT-yellow)](https://opensource.org/license/MIT)
 
 
