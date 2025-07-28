@@ -4,7 +4,7 @@
 
 ![Python Version](https://img.shields.io/badge/python-3.7%2B-blue)
 ![PyQt5 Version](https://img.shields.io/badge/PyQt5-5.15%2B-green)
-![License](https://opensource.org/license/MIT))
+![License](https://img.shields.io/badge/license-MIT-yellow)(https://opensource.org/license/MIT)
 
 A professional benchmarking tool for evaluating Ollama language models. Measure performance metrics including latency, throughput, and token generation speed through a sophisticated PyQt5 GUI.
 
