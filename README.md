@@ -8,8 +8,9 @@
 
 A professional benchmarking tool for evaluating Ollama language models. Measure performance metrics including latency, throughput, and token generation speed through a sophisticated PyQt5 GUI.
 
-![Ollama Benchmark Tool Interface](screenshot.png) *(Screenshot placeholder - replace with actual image)*
-![](screenshot1.png)
+![Ollama Benchmark Tool Interface](screenshot.png)
+![](screenshot1.png) *(Screenshot placeholder - replace with actual image)*
+
 ## ✨ Features
 
 ### 🧪 Performance Testing
