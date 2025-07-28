@@ -1,126 +1,173 @@
-markdown
-# Ollama Model Benchmark Tool
 
-![Python](https://img.shields.io/badge/python-3.7%2B-blue)
-![PyQt5](https://img.shields.io/badge/PyQt5-5.15%2B-green)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+```
+# 🚀 Ollama Model Benchmark Tool
 
-A professional benchmarking tool for evaluating Ollama language models, featuring a PyQt5 GUI with dark theme, concurrent testing capabilities, and comprehensive performance metrics.
+![Python Version](https://img.shields.io/badge/python-3.7%2B-blue)
+![PyQt5 Version](https://img.shields.io/badge/PyQt5-5.15%2B-green)
+![License](https://img.shields.io/badge/license-MIT-yellow)
 
-![Ollama Benchmark Tool Screenshot](screenshot.png) *(Placeholder - add your screenshot here)*
+A professional benchmarking tool for evaluating Ollama language models. Measure performance metrics including latency, throughput, and token generation speed through a sophisticated PyQt5 GUI.
 
-## Features
+![Ollama Benchmark Tool Interface](screenshot.png) *(Screenshot placeholder - replace with actual image)*
 
-- 🚀 **Concurrent Benchmarking** - Test models with up to 10 concurrent requests
-- 📊 **Performance Metrics** - Measure:
-  - Latency per request
-  - Tokens/second
+## ✨ Features
+
+### 🧪 Performance Testing
+- **Concurrent Benchmarking**: Test with up to 10 simultaneous requests
+- **Comprehensive Metrics**:
+  - Request latency
+  - Tokens/second generation
   - Throughput (tasks/second)
   - Total execution time
-- 🌙 **Dark Theme UI** - Eye-friendly interface with professional styling
-- 🔧 **Customizable Tests**:
-  - Select from 100+ diverse prompts
-  - Adjust number of tasks (1-200)
-  - Control concurrency levels
-- 📈 **Results Visualization**:
-  - Summary table with aggregate metrics
-  - Detailed task-level performance
-  - Color-coded performance indicators
-- 💾 **Automatic Saving** - Results exported to JSON on exit
+- **Warm-up Runs**: Initial iterations ensure accurate benchmarking
 
-## Installation
+### 🖥️ User Experience
+- **Dark Theme UI**: Professional interface with eye-friendly design
+- **Real-time Monitoring**: Progress tracking during benchmark execution
+- **Result Visualization**: Color-coded performance indicators
+- **Detailed Reports**: Task-level performance breakdowns
 
-1. **Prerequisites**:
-   - Python 3.7+
-   - Ollama running locally (`http://localhost:11434`)
-   - Installed Ollama models
+### ⚙️ Customization
+- **100+ Diverse Prompts**: Pre-configured benchmark questions
+- **Adjustable Parameters**:
+  - Task count (1-200)
+  - Model selection
+  - Concurrency control
+- **JSON Export**: Automatic saving of benchmark results
 
-2. **Install dependencies**:
+## 📦 Installation
+
+### Prerequisites
+- Python 3.7+
+- Ollama running locally (`http://localhost:11434`)
+- Installed Ollama models
+
+### Setup
 ```bash
+# Clone repository
+git clone https://github.com/Laszlobeer/llm-tester.git
+cd llm-tester
+
+# Install dependencies
 pip install PyQt5 requests
-Run the application:
 
-bash
+# Launch application
 python app.py
-Usage
-Select a model from the dropdown (refresh if needed)
+```
 
-Set task count (default: 100 tasks)
+## 🧭 Usage
 
-Click Start Benchmark
+1. **Model Selection**:
+   - Choose from detected Ollama models
+   - Refresh list if needed
+   
+2. **Configure Test**:
+   - Set number of tasks (default: 100)
+   - View available prompts in code
 
-View real-time progress in status bar
+3. **Execute Benchmark**:
+   ```mermaid
+   graph LR
+   A[Start Benchmark] --> B{Warm-up Runs}
+   B --> C[Concurrent Testing]
+   C --> D[Results Collection]
+   D --> E[Metrics Calculation]
+   E --> F[Display Results]
+   ```
 
-Analyze results in summary and details tabs
+4. **Analyze Results**:
+   - Summary table shows aggregate metrics
+   - Detail table displays task-level performance
+   - Automatic JSON export on exit
 
-💡 The tool automatically runs warm-up iterations before benchmarking for accurate results
+## ⚙️ Configuration
 
-Configuration
-Modify these constants in app.py for customization:
+Customize in `app.py`:
+```python
+# Network configuration
+OLLAMA_HOST = "http://localhost:11434"  # Remote instance URL
 
-python
-OLLAMA_HOST = "http://localhost:11434"  # Change if using remote instance
-WARMUP_RUNS = 1                         # Initial warm-up iterations
+# Benchmark parameters
+WARMUP_RUNS = 1                         # Warm-up iterations
 CONCURRENCY_LEVEL = 10                  # Max concurrent requests
-BENCHMARK_PROMPTS = [...]               # Edit to customize test prompts
-Technical Details
-Concurrency Model: Uses ThreadPoolExecutor for parallel requests
 
-Metrics Collected:
+# Custom prompts (100+ available)
+BENCHMARK_PROMPTS = [
+    "Explain quantum computing in simple terms",
+    "Write a Python function for Fibonacci sequence",
+    # ... add your own prompts
+]
+```
 
-API Latency
+## 🧠 Technical Implementation
 
-Evaluation Duration
+### Architecture
+```mermaid
+classDiagram
+    class BenchmarkWorker {
+        +progress_updated
+        +benchmark_completed
+        +error_occurred
+        -run()
+        -_run_benchmark()
+    }
+    
+    class OllamaBenchmarkApp {
+        -apply_dark_theme()
+        -load_models()
+        -start_benchmark()
+        -display_results()
+    }
+    
+    BenchmarkWorker -- OllamaBenchmarkApp : Signals
+```
 
-Token Count
+### Metrics Collected
+| Metric | Description | Calculation |
+|--------|-------------|-------------|
+| **Latency** | API response time | `end_time - start_time` |
+| **Tokens/s** | Generation speed | `eval_count / eval_duration` |
+| **Throughput** | Tasks processed per second | `task_count / total_time` |
+| **Total Time** | Complete benchmark duration | Sum of all operations |
 
-Tokens/Second
+## ❓ FAQ
 
-Error Handling: Comprehensive error reporting with UI notifications
+### Model Detection Issues
+**Q:** Why does the tool show "No models found"?  
+**A:** Ensure:
+1. Ollama is running (`ollama serve`)
+2. Models are installed (`ollama list`)
+3. Correct host address in configuration
 
-Data Persistence: JSON auto-save on exit with timestamped filenames
+### Customization
+**Q:** Can I test remote Ollama instances?  
+**A:** Yes! Modify `OLLAMA_HOST` to point to your remote instance
 
-FAQ
-Q: Why am I getting "No models found" error?
-A: Ensure Ollama is running and models are installed. Check connection to OLLAMA_HOST.
+**Q:** How can I add custom prompts?  
+**A:** Edit the `BENCHMARK_PROMPTS` list in the code
 
-Q: Can I test remote Ollama instances?
-A: Yes! Modify OLLAMA_HOST in the code to point to your remote instance.
+## 🤝 Contributing
 
-Q: How are tokens/second calculated?
-A: Calculated using Ollama's eval_count and eval_duration from API response.
+We welcome contributions! Here's how to help:
 
-Contributing
-Contributions are welcome! Please open an issue or PR for:
+1. Report bugs or request features via [Issues](https://github.com/Laszlobeer/llm-tester/issues)
+2. Submit improvements through Pull Requests:
+   ```bash
+   fork repository
+   create feature branch (git checkout -b feature/improvement)
+   commit changes (git commit -am 'Add new feature')
+   push branch (git push origin feature/improvement)
+   open pull request
+   ```
 
-Bug reports
+3. Areas for contribution:
+   - Additional performance metrics
+   - Enhanced visualization
+   - More benchmark prompts
+   - Docker support
 
-Feature requests
+## 📜 License
 
-Performance improvements
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-Additional test prompts
 
-License
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-Optimize your language model selection with data-driven performance metrics!
-
-text
-
-Key elements included:
-1. Professional badges for Python/PyQt5 versions and license
-2. Clear feature list with emoji visual markers
-3. Step-by-step installation/usage instructions
-4. Configuration section for advanced users
-5. Technical implementation details
-6. FAQ for common troubleshooting
-7. Contribution guidelines
-8. License information
-
-To complete the README:
-1. Add a screenshot named `screenshot.png` in your repo
-2. Create a `LICENSE` file with MIT license text
-3. Adjust any configuration details specific to your environment
-
-The README is optimized for GitHub with proper markdown formatting, clear section organization, and emoji-enhanced readability.
